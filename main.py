@@ -45,7 +45,10 @@ class Installer:
 		return answer['server_directory']
 
 	def prepare_server_directory(self):
+		buildtools = os.path.join(self.__server_directory, 'BuildTools.jar')
 		Path(self.__server_directory).mkdir(parents=True, exist_ok=True)
+		if os.path.exists(buildtools):
+			os.remove(buildtools)
 
 	def java_memory_allocation(self):
 		question = [
@@ -53,7 +56,7 @@ class Installer:
 				'type': 'list',
 				'name': 'memory',
 				'message': 'Java memory allocation:',
-				'choices': ['2048M', '1024M', '512M', '256M', '128M']
+				'choices': ['2048M', '1024M', '512M']
 			}
 		]
 		answer = prompt(question)
